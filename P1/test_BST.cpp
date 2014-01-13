@@ -3,8 +3,172 @@
 #include <algorithm>
 #include <vector>
 
+/* Additional */
+#include <limits.h>
+
 using namespace std;
 
+/** //TODO: list real name(s) and login name(s) 
+ *  // of the author(s) of this assignment
+ *  Authors: Brian Soe, Timothy Chang
+ *  Login: bsoe, twc006
+ *  Assignment #1
+ */
+
+int thetest()
+{
+  cout << "\n========== USING OTHER TESTER ==========" << endl;
+
+  /* Set-up */
+  srand(time(NULL)); // reset random generator
+  vector<int> list;
+  BST<int> tree;
+  int value = rand(); // random value for more accurate testing
+
+  list.push_back(0); // adding corner and basic cases
+  list.push_back(1);
+  list.push_back(-1);
+  list.push_back(INT_MIN);
+  list.push_back(INT_MAX);
+  list.push_back(value);
+
+  vector<int>::iterator beginV = list.begin(); 
+
+  cout << "The random value is " << value << endl;
+  cout << "Testing size() when empty ... ";
+  if(tree.size() == 0)
+  {
+    cout << "PASSED!" << endl;
+  }
+  else
+  {
+    cout << "FAILED" << endl;
+  } 
+
+  cout << "Testing empty() when empty ... ";
+  if(tree.empty() == true)
+  {
+    cout << "PASSED!" << endl;
+  }
+  else
+  {
+    cout << "FAILED" << endl;
+  }
+
+  cout << "Testing clear() when empty ... ";
+  if(tree.getRoot() == nullptr && tree.size() == 0 && tree.empty())
+  {
+    cout << "PASSED!" << endl;
+  }
+  else
+  {
+    cout << "FAILED" << endl;
+  }
+
+  cout << "Testing insert() and begin() when initially empty ... ";
+  tree.insert(*(list.begin()));
+  if(*(tree.begin()) == *(list.begin()))
+  {
+    cout << "PASSED!" << endl;
+  }
+  else
+  {
+    cout << "FAILED" << endl;
+  }
+
+  cout << "Testing empty() with at least one data ... ";
+  if(tree.empty() == false)
+  {
+    cout << "PASSED!" << endl;
+  }
+  else
+  {
+    cout << "FAILED" << endl;
+  }
+
+  cout << "Testing clear() when there's an data ... ";
+  tree.clear();
+  if(tree.size() == 0 && tree.insert(value).second)
+  {
+    cout << "PASSED!" << endl;
+  }
+  else
+  {
+    cout << "FAILED" << endl;
+  }
+  tree.clear();
+
+  cout << "Testing insert() with all data of vector ... ";
+  beginV = list.begin();
+  while(beginV != list.end())
+  {
+    //cout << "Inserting: " << *beginV << endl;
+    std::pair<BST<int>::iterator,bool> pair = tree.insert(*beginV);
+    // check pair.first here
+    if(!pair.second)
+    {
+      cout << "FAILED" << endl;
+      break;
+    }
+    beginV++;
+    if(beginV == list.end())
+    {
+      cout << "PASSED!" << endl;
+    }
+  }
+
+  cout << "Testing size() with all data of vector ... ";
+  if(tree.size() == list.size())
+  {
+    cout << "PASSED!" << endl;
+  }
+  else
+  {
+    cout << "FAILED" << endl;
+  }
+
+  cout << "Testing begin() ... ";
+  sort(list.begin(),list.end());
+  beginV = list.begin();
+  BST<int>::iterator beginT = tree.begin();
+  while(*beginV != *(list.end()))
+  {
+    if(*(beginT) != *(beginV))
+    {
+      cout << "FAILED" << endl;
+      break;
+    }
+    beginT++;
+    beginV++;
+    if(*beginV == *(list.end()))
+    {
+      cout << "PASSED!" << endl;
+    }
+  }
+ 
+  cout << "Traversing BST: " << endl;
+  beginT = tree.begin();
+  beginV = list.begin();
+  while(beginT != tree.end())
+  {
+    cout << "  * " << *beginT << " --> ";
+    if(*beginT == *beginV)
+    {
+      cout << "Correct." << endl;
+    }
+    else
+    {
+      cout << "Incorrect. The correct value is " << *beginV << "." << endl; 
+    }
+    beginT++;
+    beginV++;
+  }
+  cout << "Traversing complete!" << endl;
+  cout << "========== FINISHED TESTING ==========\n" << endl;
+  //TODO call destructor here
+  //TODO successor
+  return 0;
+}
 /**
  * A simple test driver for the BST class template.
  * P1 CSE 100 2013
@@ -78,4 +242,5 @@ int main() {
   }
   cout << "OK." << endl;
 
+  thetest();
 }

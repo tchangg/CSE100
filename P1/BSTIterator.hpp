@@ -7,7 +7,7 @@
 /** //TODO: list real name(s) and login name(s) 
  *  // of the author(s) of this assignment
  *  Authors: Brian Soe, Timothy Chang
- *  Login: bsoe,
+ *  Login: bsoe, twc006
  *  Assignment #1
  */
 
