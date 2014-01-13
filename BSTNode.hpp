@@ -42,27 +42,40 @@ public:
    *  RETURNS: the BSTNode that is the inorder successor of this BSTNode,
    *  or nullptr if there is none.
    */ // TODO
-  BSTNode<Data>* successor() const {
+  BSTNode<Data>* successor(){
     BSTNode<Data>* tmp = this;
-    // search for next inorder from right child
-    if(tmp.right != nullptr)
-    {
-      tmp = tmp.right;
-      while(tmp.left != nullptr)
+    BSTNode<Data>* p = tmp->parent;
+    if(tmp->right == nullptr){
+      if(p == nullptr)
       {
-        tmp = tmp.left;
+        return nullptr;
+      }   
+      // look for parents as next inorder.
+      do
+      {
+        if(p->left == tmp)
+        {
+          break;
+        }
+        tmp = p;
+        p = p->parent;
+        if(p == nullptr)
+        {
+          return nullptr;
+        }
+      }while(tmp == p->right);
+      return p;
+    }
+    // search for next inorder from right child
+    else    
+    {
+      tmp = tmp->right;
+      while(tmp->left != nullptr)
+      {
+        tmp = tmp->left;
       }
       return tmp;
     }
-   
-    // look for parents as next inorder.
-    BSTNode<Data>* p = tmp.parent;
-    while(p != nullptr && tmp == p.right)
-    {
-      tmp = p;
-      p = p.parent;
-    }
-    return p;
   }
 
 }; 

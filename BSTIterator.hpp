@@ -26,7 +26,7 @@ private:
    *  Note: this constructor is private; but friend classes can access.
    */ // TODO
   BSTIterator(BSTNode<Data>* curr) {
-    this.curr = curr;
+    this->curr = curr;
   }
 
 
@@ -65,12 +65,12 @@ public:
 
   /** Equality test operator. */ // TODO
   bool operator==(BSTIterator<Data> const & other) const {
-    return this.curr == other.curr;
+    return this->curr == other.curr;
   }
 
   /** Inequality test operator. */ // TODO
   bool operator!=(BSTIterator<Data> const & other) const {
-    return this.curr != other.curr;
+    return this->curr != other.curr;
   }
 
 };
