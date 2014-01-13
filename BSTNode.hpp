@@ -6,7 +6,7 @@
 /** //TODO: list real name(s) and login name(s) 
  *  // of the author(s) of this assignment
  *  Authors: Brian Soe, Timothy Chang
- *  Login: bsoe,
+ *  Login: bsoe, twc006
  *  Assignment #1
  */
 
@@ -45,32 +45,38 @@ public:
   BSTNode<Data>* successor(){
     BSTNode<Data>* tmp = this;
     BSTNode<Data>* p = tmp->parent;
+
+    // if there is no right child
     if(tmp->right == nullptr){
-      if(p == nullptr)
+      if(p == nullptr) // when there's no parent
       {
         return nullptr;
-      }   
+      }
+
       // look for parents as next inorder.
       do
       {
-        if(p->left == tmp)
+        if(p->left == tmp) // when current node is left child of parent
         {
           break;
         }
+        
+        // move up of BST
         tmp = p;
         p = p->parent;
-        if(p == nullptr)
+        if(p == nullptr) // check if there's no parent again
         {
           return nullptr;
         }
-      }while(tmp == p->right);
+      } while(tmp == p->right);
       return p;
     }
+
     // search for next inorder from right child
     else    
     {
       tmp = tmp->right;
-      while(tmp->left != nullptr)
+      while(tmp->left != nullptr) // traverse left descendants of right child
       {
         tmp = tmp->left;
       }
