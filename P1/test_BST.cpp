@@ -15,7 +15,7 @@ using namespace std;
  *  Assignment #1
  */
 
-int thetest()
+int testDriver()
 {
   cout << "\n========== USING OTHER TESTER ==========" << endl;
 
@@ -23,18 +23,36 @@ int thetest()
   srand(time(NULL)); // reset random generator
   vector<int> list;
   BST<int> tree;
-  int value = rand(); // random value for more accurate testing
+  int N = rand()%2; // randomly determine if the number will be negative or not.
+  if(N == 0)
+  {
+    N = -1;
+  }
+  unsigned int traverse_counter = 0;
 
   list.push_back(0); // adding corner and basic cases
   list.push_back(1);
   list.push_back(-1);
-  list.push_back(INT_MIN);
-  list.push_back(INT_MAX);
-  list.push_back(value);
+  //list.push_back(INT_MIN); //removed due to memory leak
+  //list.push_back(INT_MAX); //removed due to memory leak
+  list.push_back((N+2)*(rand()%100+2)); // value that could be negative or positive
+  list.push_back(rand()%100+2); // value always positive
 
-  vector<int>::iterator beginV = list.begin(); 
+  vector<int>::iterator beginV = list.begin();
+  vector<int>::iterator endV = list.end();
 
-  cout << "The random value is " << value << endl;
+  cout << "Given vector is: [";
+  while(beginV != endV)
+  {
+    cout << *beginV;
+    beginV++;
+    if(beginV != endV)
+    {
+      cout << ", ";
+    }
+  }
+  cout << "]" << endl;
+  
   cout << "Testing size() when empty ... ";
   if(tree.size() == 0)
   {
@@ -76,6 +94,17 @@ int thetest()
     cout << "FAILED" << endl;
   }
 
+  cout << "Testing insert() when inserting repeated data ... ";
+  std::pair<BST<int>::iterator,bool> pair = tree.insert(*(list.begin()));
+  if(!pair.second && tree.size() == 1)
+  {
+    cout << "PASSED!" << endl;
+  }
+  else
+  {
+    cout << "FAILED" << endl;
+  }
+
   cout << "Testing empty() with at least one data ... ";
   if(tree.empty() == false)
   {
@@ -88,7 +117,7 @@ int thetest()
 
   cout << "Testing clear() when there's an data ... ";
   tree.clear();
-  if(tree.size() == 0 && tree.insert(value).second)
+  if(tree.size() == 0 && tree.insert(rand()%100).second)
   {
     cout << "PASSED!" << endl;
   }
@@ -100,18 +129,16 @@ int thetest()
 
   cout << "Testing insert() with all data of vector ... ";
   beginV = list.begin();
-  while(beginV != list.end())
+  while(beginV != endV)
   {
-    //cout << "Inserting: " << *beginV << endl;
-    std::pair<BST<int>::iterator,bool> pair = tree.insert(*beginV);
-    // check pair.first here
-    if(!pair.second)
+    pair = tree.insert(*beginV);
+    if(*(pair.first) != *beginV || !pair.second)
     {
       cout << "FAILED" << endl;
       break;
     }
     beginV++;
-    if(beginV == list.end())
+    if(beginV == endV)
     {
       cout << "PASSED!" << endl;
     }
@@ -131,7 +158,7 @@ int thetest()
   sort(list.begin(),list.end());
   beginV = list.begin();
   BST<int>::iterator beginT = tree.begin();
-  while(*beginV != *(list.end()))
+  while(beginT != tree.end())
   {
     if(*(beginT) != *(beginV))
     {
@@ -140,13 +167,13 @@ int thetest()
     }
     beginT++;
     beginV++;
-    if(*beginV == *(list.end()))
+    if(beginT == tree.end())
     {
       cout << "PASSED!" << endl;
     }
   }
  
-  cout << "Traversing BST: " << endl;
+  cout << "Traversing BST (in-order): " << endl;
   beginT = tree.begin();
   beginV = list.begin();
   while(beginT != tree.end())
@@ -155,6 +182,7 @@ int thetest()
     if(*beginT == *beginV)
     {
       cout << "Correct." << endl;
+      traverse_counter++;
     }
     else
     {
@@ -163,10 +191,18 @@ int thetest()
     beginT++;
     beginV++;
   }
-  cout << "Traversing complete!" << endl;
+  cout << "Complete! Traversal Result: ";
+  if(traverse_counter == list.size())
+  {
+    cout << "PASSED!" << endl;
+  }
+  else
+  {
+    cout << "FAILED" << endl;
+  }
   cout << "========== FINISHED TESTING ==========\n" << endl;
   //TODO call destructor here
-  //TODO successor
+  //TODO successor()
   return 0;
 }
 /**
@@ -242,5 +278,5 @@ int main() {
   }
   cout << "OK." << endl;
 
-  thetest();
+  testDriver();
 }

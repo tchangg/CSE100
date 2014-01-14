@@ -69,19 +69,17 @@ public:
     // when at least one node exists
     while(tmp->left != nullptr || tmp->right != nullptr)
     {
-      if(tmp->data == toAdd->data || // if item already existed in BST
-         tmp->left == nullptr || // if there is no left child
-         tmp->right == nullptr) // if there is no right child
-      {
-        break; // get out of loop
-      }
-      else if(tmp->data > toAdd->data)
+      if(tmp->data > toAdd->data && tmp->left != nullptr)
       {
         tmp = tmp->left; // follow path to left child
       }
-      else if(tmp->data < toAdd->data)
+      else if(tmp->data < toAdd->data && tmp->right != nullptr)
       {
         tmp = tmp->right; // follow path to right child
+      }
+      else
+      {
+        break;
       }
     }
 
