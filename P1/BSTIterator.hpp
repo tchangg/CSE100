@@ -73,6 +73,11 @@ public:
     return this->curr != other.curr;
   }
 
+  BSTNode<Data>* getNode()
+  {
+    return curr;
+  }
+
 };
 
 #endif //BSTITERATOR_HPP

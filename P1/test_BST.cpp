@@ -17,7 +17,7 @@ using namespace std;
 
 int testDriver()
 {
-  cout << "\n========== USING OTHER TESTER ==========" << endl;
+  cout << "\n========== USING OTHER TESTER ==========\n" << endl;
 
   /* Set-up */
   srand(time(NULL)); // reset random generator
@@ -173,7 +173,7 @@ int testDriver()
     }
   }
  
-  cout << "Traversing BST (in-order): " << endl;
+  cout << "\nTraversing BST (in-order): " << endl;
   beginT = tree.begin();
   beginV = list.begin();
   while(beginT != tree.end())
@@ -191,7 +191,7 @@ int testDriver()
     beginT++;
     beginV++;
   }
-  cout << "Complete! Traversal Result: ";
+  cout << "Traversal Result: ";
   if(traverse_counter == list.size())
   {
     cout << "PASSED!" << endl;
@@ -200,9 +200,35 @@ int testDriver()
   {
     cout << "FAILED" << endl;
   }
-  cout << "========== FINISHED TESTING ==========\n" << endl;
+
+  cout << "\nTesting successor() with pre-order increment ... " << endl;
+  beginT = tree.begin();
+  beginV = list.begin();
+  traverse_counter = 0;
+  for(unsigned int i = 1; i < tree.size(); i++)
+  {
+    cout << "Successor of " << *beginT << " is " << *(++beginT);
+    if(*beginT == *(++beginV))
+    {
+      cout << " --> Correct." << endl;
+      traverse_counter++;
+    }
+    else
+    {
+      cout << " --> Incorrect. Correct value is " << *beginV;
+    }
+  }
+  if(traverse_counter == tree.size()-1)
+  {
+    cout << "PASSED!" << endl;
+  }
+  else
+  {
+    cout << "FAILED" << endl;
+  }
+
+  cout << "\n========== FINISHED TESTING ==========\n" << endl;
   //TODO call destructor here
-  //TODO successor()
   return 0;
 }
 /**
