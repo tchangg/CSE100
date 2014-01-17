@@ -4,7 +4,7 @@
 #include <list>
 #include <iterator>
 
-/** //TODO: list real name(s) and login name(s) 
+/** // : list real name(s) and login name(s) 
  *  // of the author(s) of this assignment
  *  Authors: Brian Soe, Timothy Chang
  *  Login: bsoe, twc006
@@ -24,7 +24,7 @@ private:
   /** Constructor.  Use the argument to initialize a given BSTNode
    *  in this BSTIterator.
    *  Note: this constructor is private; but friend classes can access.
-   */ // TODO
+   */ //  
   BSTIterator(BSTNode<Data>* curr) {
     this->curr = curr;
   }
@@ -63,12 +63,12 @@ public:
     return before;
   }
 
-  /** Equality test operator. */ // TODO
+  /** Equality test operator. */ //  
   bool operator==(BSTIterator<Data> const & other) const {
     return this->curr == other.curr;
   }
 
-  /** Inequality test operator. */ // TODO
+  /** Inequality test operator. */ //  
   bool operator!=(BSTIterator<Data> const & other) const {
     return this->curr != other.curr;
   }

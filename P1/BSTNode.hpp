@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iomanip>
 
-/** //TODO: list real name(s) and login name(s) 
+/** // : list real name(s) and login name(s) 
  *  // of the author(s) of this assignment
  *  Authors: Brian Soe, Timothy Chang
  *  Login: bsoe, twc006
@@ -41,7 +41,7 @@ public:
    *  POSTCONDITION:  the BST is unchanged.
    *  RETURNS: the BSTNode that is the inorder successor of this BSTNode,
    *  or nullptr if there is none.
-   */ // TODO
+   */
   BSTNode<Data>* successor(){
     BSTNode<Data>* tmp = this;
     BSTNode<Data>* p = tmp->parent;
